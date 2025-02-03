@@ -39,3 +39,11 @@ On the Arduino, MOSI is pin 11 and SCK is 13, the rest are configurable.
 - With the Arduino ADC, readings range from 0 to 1023 and are mapped to 0 V and 5 V respectively.
 
 - For testing at home without an oscilloscope, we have to generate the waves on the Arduino, but the Arduino Uno R3 doesn't have a DAC. We could try to hack together a PWM + low pass filter to try create a sine wave but we can just generate a square wave from the digital pins instead (much easier). If we want to read our generated signal on the Arduino at the same time, it's safe to connect the digital pin directly to the analog pin because of the high input impedance (100 M$\Omega$'s ensures no overcurrent).
+
+- When manipulating floating point types in Arduino, use '-f' to prevent slow software-based float operations. 
+
+ie. float voltage = (analog_val / 1023.0f) * 5.0f;
+
+The suffix prevents Arduino from interpreting 1023.0 as a double precision floating point type which would significantly slow the calculation down.
+
+ - The Arduino serial monitor only supports a serial baud rate up to 115200.
