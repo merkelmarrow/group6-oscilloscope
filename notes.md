@@ -31,3 +31,11 @@ Here are what the different pins do:
 7. RST: resets the display (active LOW).
 
 On the Arduino, MOSI is pin 11 and SCK is 13, the rest are configurable.
+
+- Disp is 128 pixels wide by 64 pixels tall.
+
+- For a 1 Hz waveform, one full cycle takes 1000 ms. Say we want to display two cycles on the screen. If we have 128 pixels across, and two cycles take two seconds (because signal is 1 Hz), we should sample every ~16 ms (2000 ms / 128). So we can use delay(16) between samples.
+
+- With the Arduino ADC, readings range from 0 to 1023 and are mapped to 0 V and 5 V respectively.
+
+- For testing at home without an oscilloscope, we have to generate the waves on the Arduino, but the Arduino Uno R3 doesn't have a DAC. We could try to hack together a PWM + low pass filter to try create a sine wave but we can just generate a square wave from the digital pins instead (much easier). If we want to read our generated signal on the Arduino at the same time, it's safe to connect the digital pin directly to the analog pin because of the high input impedance (100 M$\Omega$'s ensures no overcurrent).
