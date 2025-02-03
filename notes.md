@@ -18,4 +18,16 @@ A more sophisticated solution can use an op-amp buffer circuit which provides ve
 
 - No need for a low pass filter at ~1 Hz. Since the signal is very slow, we don't need high-speed sampling. Simple polling (ie. analogRead()) should work fine.
 
-- MDOB128064BV-WS module takes 5V power and uses SPI.
+- MDOB128064BV-WS (calling it disp from now) module takes 5V power and uses SPI. 
+
+Here are what the different pins do:
+
+1. VCC: power supply (5V).
+2. GND: ground.
+3. MOSI (aka D1): data from microcontroller to disp.
+4. SCK (aka CLK, D0): serial clock, signal for synchronising data.
+5. CS (aka SS): selects the active SPI device (not relevant to us because we're only using one SPI "slave" device, ie the disp).
+6. DC: used to differentiate between command and data bytes.
+7. RST: resets the display (active LOW).
+
+On the Arduino, MOSI is pin 11 and SCK is 13, the rest are configurable.
