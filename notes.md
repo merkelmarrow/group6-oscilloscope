@@ -22,13 +22,13 @@ A more sophisticated solution can use an op-amp buffer circuit which provides ve
 
 Here are what the different pins do:
 
-1. VCC: power supply (5V).
-2. GND: ground.
-3. MOSI (aka D1): data from microcontroller to disp.
-4. SCK (aka CLK, D0): serial clock, signal for synchronising data.
-5. CS (aka SS): selects the active SPI device (not relevant to us because we're only using one SPI "slave" device, ie the disp).
-6. DC: used to differentiate between command and data bytes.
-7. RST: resets the display (active LOW).
+VCC: power supply (5V).
+GND: ground.
+MOSI (aka D1): data from microcontroller to disp.
+SCK (aka CLK, D0): serial clock, signal for synchronising data.
+CS (aka SS): selects the active SPI device (not relevant to us because we're only using one SPI "slave" device, ie the disp).
+DC: used to differentiate between command and data bytes.
+RST: resets the display (active LOW).
 
 On the Arduino, MOSI is pin 11 and SCK is 13, the rest are configurable.
 
@@ -46,4 +46,18 @@ ie. float voltage = (analog_val / 1023.0f) * 5.0f;
 
 The suffix prevents Arduino from interpreting 1023.0 as a double precision floating point type which would significantly slow the calculation down.
 
- - The Arduino serial monitor only supports a serial baud rate up to 115200.
+- The Arduino serial monitor only supports a serial baud rate up to 115200.
+
+- disp pin numbers:
+
+1. GND
+2. VCC
+3. D0
+4. D1
+5. RST
+6. DC
+7. CS
+
+1 $\mu F$ capacitor is needed between VCC and ground.
+
+- display.display() adds whatever is in the display buffer onto the screen (but doesn't delete the buffer. To clear the screen you have to call display.clearDisplay() (which clears the buffer) and then display.display() again to clear the screen.

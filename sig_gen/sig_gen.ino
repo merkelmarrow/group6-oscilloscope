@@ -26,6 +26,9 @@ void loop() {
   if (current_millis - prev_millis_in >= in_interval) {
     int analog_val = analogRead(SIG_READ_PIN);
     float voltage = (analog_val / 1023.0f) * 5.0f;
+
+    // This format is compatible with Arduino serial plotter
+    // Switch this with pixel mapping or save into buffer
     Serial.print("Voltage:"); Serial.println(voltage);
   }
 }
